@@ -1,4 +1,3 @@
 module.exports = {
-  Game: require('./games'),
-  Round: require('./rounds')
+  Report: require('./reports'),
 };

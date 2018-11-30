@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const gameSchema = new Schema({
+const reportSchema = new Schema({
   format: {
     type: String,
     required: true
@@ -16,12 +16,12 @@ const gameSchema = new Schema({
   },
   rounds: [
     {
-      type: Schema.Types.ObjectId,
-      ref: 'Round'
+      type: Schema.Types.Mixed,
+      required: true
     }
   ]
 });
 
-const Game = mongoose.model('Game', gameSchema);
+const Report = mongoose.model('Report', reportSchema);
 
-module.exports = Game;
+module.exports = Report;
