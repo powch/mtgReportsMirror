@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Input, FormBtn } from '../../components/Form'
-import { Container, Col, Row } from '../../components/Grid';
+import { FormInput } from '../../components/Form';
+import { Form, Container, Row, Col, Button } from 'reactstrap';
 
 class SignIn extends Component {
   state = {
@@ -27,39 +27,45 @@ class SignIn extends Component {
     return(
       <Container>
         <Row>
-          <Col size='sm-3' />
-          <Col size='sm-6'>
-            <Input
-              name='email'
-              elementId='email'
-              label='Email Address:'
-              value={this.state.email}
-              handleInputChange={this.handleInputChange}
-            />
-            <Input
-              name='emailConfirm'
-              elementId='emailConfirm'
-              label='Confirm Email Address:'
-              value={this.state.emailConfirm}
-              handleInputChange={this.handleInputChange}
-            />
-            <Input
-              name='password'
-              elementId='password'
-              label='Password:'
-              value={this.state.password}
-              handleInputChange={this.handleInputChange}
-            />
-            <Input
-              name='passwordConfirm'
-              elementId='passwordConfirm'
-              label='Confirm Password:'
-              value={this.state.passwordConfirm}
-              handleInputChange={this.handleInputChange}
-            />
-            <FormBtn>Sign Up</FormBtn>
+          <Col sm='3' />
+          <Col sm='6'>
+            <Form>
+              <FormInput
+                name='email'
+                elementId='email'
+                label='Email Address:'
+                placeholder='example@mail.com'
+                value={this.state.email}
+                handleInputChange={this.handleInputChange}
+              />
+              <FormInput
+                name='emailConfirm'
+                elementId='emailConfirm'
+                label='Confirm Email Address:'
+                placeholder='Confirm your email address'
+                value={this.state.emailConfirm}
+                handleInputChange={this.handleInputChange}
+              />
+              <FormInput
+                name='password'
+                elementId='password'
+                label='Password:'
+                placeholder='Password'
+                value={this.state.password}
+                handleInputChange={this.handleInputChange}
+              />
+              <FormInput
+                name='passwordConfirm'
+                elementId='passwordConfirm'
+                label='Confirm Password:'
+                placeholder='Confirm your password'
+                value={this.state.passwordConfirm}
+                handleInputChange={this.handleInputChange}
+              />
+              <Button color='success'>Sign In</Button>
+            </Form>
           </Col>
-          <Col size='sm-3' />
+          <Col sm='3'/>
         </Row>
       </Container>
     );

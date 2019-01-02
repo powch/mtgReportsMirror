@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Input, FormBtn } from '../../components/Form'
-import { Container, Col, Row } from '../../components/Grid';
+import { FormInput } from '../../components/Form';
+import { Container, Row, Col, Form, Button } from 'reactstrap';
 
 class SignIn extends Component {
   state = {
@@ -25,29 +25,40 @@ class SignIn extends Component {
     return (
       <Container>
         <Row>
-          <Col size='sm-3' />
-          <Col size='sm-6'>
-            <Input
-              name='email'
-              elementId='email'
-              label='Email Address:'
-              value={this.state.email}
-              handleInputChange={this.handleInputChange}
-            />
-            <Input
-              name='password'
-              elementId='password'
-              label='Password:'
-              value={this.state.password}
-              handleInputChange={this.handleInputChange}
-            />
-            <FormBtn>Sign In</FormBtn>
+          <Col sm="3" />
+          <Col sm="6">
+            <Form>
+              <FormInput
+                name="email"
+                elementId="email"
+                label="Email Address:"
+                value={this.state.email}
+                placeholder='example@mail.com'
+                handleInputChange={this.handleInputChange}
+              />
+              <FormInput
+                name="password"
+                elementId="password"
+                label="Password:"
+                placeholder='Password'
+                value={this.state.password}
+                handleInputChange={this.handleInputChange}
+              />
+              <Button color='success'>Sign In</Button>
+            </Form>
           </Col>
-          <Col size='sm-3' />
+          <Col sm="3" />
+        </Row>
+        <Row className="mt-5">
+          <Col sm="4" />
+          <Col sm="4">
+            Don't have an account? <a href='/signup'>Register here.</a>
+          </Col>
+          <Col sm="4" />
         </Row>
       </Container>
     );
   }
-};
+}
 
 export default SignIn;

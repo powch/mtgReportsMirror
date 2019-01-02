@@ -1,59 +1,46 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Container } from '../Grid';
+import React, { Component } from 'react';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink
+} from 'reactstrap';
 import './Nav.css';
 
-const Nav = () => (
-  <nav className='navbar navbar-expand-lg navbar-light bg-light mb-3'>
-    <Container>
-      <button className='btn btn-primary'>SIGN IN</button>
-      <a className='navbar-brand abs-center-x' href='/'>
-        MTG Report
-      </a>
-      <button
-        className='navbar-toggler'
-        type='button'
-        data-toggle='collapse'
-        data-target='#navbarNav'
-        aria-controls='navbarNav'
-        aria-expanded='false'
-        aria-label='Toggle navigation'
-      >
-        <span className='navbar-toggler-icon' />
-      </button>
-      <div className='collapse navbar-collapse' id='navbarNav'>
-        <ul className='navbar-nav ml-auto'>
-          <li
-            className={
-              window.location.pathname === '/' ? 'nav-item active' : 'nav-item'
-            }
-          >
-            <Link to='/' className='nav-link'>
-              Home
-            </Link>
-          </li>
-          <li
-            className={
-              window.location.pathname === '/' ? 'nav-item active' : 'nav-item'
-            }
-          >
-            <Link to='/' className='nav-link'>
-              Stuff
-            </Link>
-          </li>
-          <li
-            className={
-              window.location.pathname === '/' ? 'nav-item active' : 'nav-item'
-            }
-          >
-            <Link to='/' className='nav-link'>
-              Stuff
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </Container>
-  </nav>
-);
+class NavTemplate extends Component {
+  state = {
+    isOpen: false
+  };
 
-export default Nav;
+  toggleNavbar = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <Navbar color="light" light expand="lg">
+          <NavbarBrand href="/">MTG Report</NavbarBrand>
+          <NavbarToggler onClick={this.toggleNavbar} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/signin">Sign In</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/signup">Register</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+export default NavTemplate;
