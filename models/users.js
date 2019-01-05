@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const reportSchema = new Schema({
+const userSchema = new Schema({
   userId: {
     type: String,
     required: true
   },
-  reports: [
+  notes: [
     {
       type: Schema.Types.ObjectId,
       ref: 'Report'
@@ -14,6 +14,6 @@ const reportSchema = new Schema({
   ]
 });
 
-const Report = mongoose.model('Report', reportSchema);
+const User = mongoose.model('User', userSchema);
 
-module.exports = Report;
+module.exports = User;
