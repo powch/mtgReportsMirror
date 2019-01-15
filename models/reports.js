@@ -1,16 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
-  var Report = sequelize.define("Report", {
-    name: {
-      type: DataTypes.TEXT,
+  var Report = sequelize.define('Report', {
+    format: {
+      type: DataTypes.STRING,
       allowNull: false
     },
-    phone: {
+    event: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    url: {
+    deck: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false
     }
   });
   Report.associate = models => {

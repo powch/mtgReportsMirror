@@ -1,11 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
-  var YelpReview = sequelize.define('YelpReview', {
+  var Round = sequelize.define('Round', {
     opponentDeck: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false
     },
     result: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false
     },
     notes: {
@@ -13,15 +13,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  YelpReview.associate = models => {
-    // We're saying that a YelpReview should belong to an FoodTruck
-    // A YelpReview can't be created without an FoodTruck due to the foreign key constraint
-    YelpReview.belongsTo(models.FoodTruck, {
+  Round.associate = models => {
+    // We're saying that a Round should belong to an Report
+    // A Round can't be created without an Report due to the foreign key constraint
+    Round.belongsTo(models.Report, {
       foreignKey: {
         allowNull: false
       }
     });
   };
 
-  return YelpReview;
+  return Round;
 };
