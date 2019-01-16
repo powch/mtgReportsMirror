@@ -3,33 +3,43 @@ const db = require("../models");
 module.exports = {
   findAll: (req, res) => {
     db.Report
-      .find(req.query)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .findAll({ include: [ db.Round ]})
+      .then(dbReports => res.json(dbReports))
+      .catch(err => status(422).json(err));
   },
-  findById: (req, res)  => {
+
+  findOne: (req, res) => {
     db.Report
-      .findById(req.params.id)
-      .then(dbModel => res.json(dbModel))
+      .findOne(
+        { 
+          where: { id: req.params.id }, 
+          include: [ db.Round ]
+        }
+      )
+      .then(dbReport => res.json(dbReport))
       .catch(err => res.status(422).json(err));
   },
+
   create: (req, res) => {
     db.Report
       .create(req.body)
-      .then(dbModel => res.json(dbModel))
+      .then(dbReport => res.json(dbReport))
       .catch(err => res.status(422).json(err));
   },
+
   update: (req, res) => {
     db.Report
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
-      .then(dbModel => res.json(dbModel))
+      .update( req.body, {
+        where: { id: req.body.id }
+      })
+      .then(dbReport => res.json(dbReport))
       .catch(err => res.status(422).json(err));
   },
-  remove: (req, res) => {
+
+  destroy: (req, res) => {
     db.Report
-      .findById({ _id: req.params.id })
-      .then(dbModel => dbModel.remove())
-      .then(dbModel => res.json(dbModel))
+      .destroy({ where: { id: req.body.id }})
+      .then(dbReport => res.json(dbReport))
       .catch(err => res.status(422).json(err));
   }
 };
