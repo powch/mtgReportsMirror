@@ -8,8 +8,8 @@ router
 
 router
   .route('/:id')
-  .get(reportController.findById)
+  .get(reportController.findOne)
   .put(reportController.update)
-  .delete(reportController.remove);
+  .delete(reportController.destroy);
 
 module.exports = router;

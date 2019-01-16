@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Report.associate = models => {
     Report.hasMany(models.Round);
+    Report.belongsTo(models.User, { foreignKey: { allowNull: true } });
   };
   return Report;
 };

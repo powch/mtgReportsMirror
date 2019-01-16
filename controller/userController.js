@@ -4,7 +4,7 @@ module.exports = {
 
   findOne: (req, res) => {
     db.User.findOne({
-      where: { userId: req.params.id },
+      where: { userId: req.params.userId },
       include: [
         {
           model: db.Report,
@@ -21,9 +21,11 @@ module.exports = {
     .catch(err => res.status(422).json(err));
   },
 
-  create: (req, res) => {
+  findOrCreate: (req, res) => {
     db.User
-      .create(req.body)
+      .findOrCreate({
+        where: { userId: req.params.userId }
+      })
       .then(dbUser => res.json(dbUser))
       .catch(err => res.status(422).json(err));
   }

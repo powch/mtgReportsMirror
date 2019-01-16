@@ -4,6 +4,11 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true
+    },
+
+    profilePic: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   });
   User.associate = models => {
