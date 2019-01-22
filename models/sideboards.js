@@ -2,8 +2,7 @@ module.exports = function(sequelize, DataTypes) {
   var sideboardRecommendation = sequelize.define('sideboardRecommendation', {
     sideboardRecommendation: {
       type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true
+      allowNull: false
     }
   });
   sideboardRecommendation.associate = models => {

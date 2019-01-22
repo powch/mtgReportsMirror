@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
   var User = sequelize.define("User", {
-    userId: {
+    fbId: {
       type: DataTypes.UUID,
       allowNull: false,
       primaryKey: true
