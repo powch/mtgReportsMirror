@@ -8,11 +8,13 @@ module.exports = function (sequelize, DataTypes) {
 
     profilePic: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     }
   });
   User.associate = models => {
-    User.hasMany(models.Report);
+    User.hasMany(models.Report, {
+      allowNull: true
+    });
   };
   return User;
 }

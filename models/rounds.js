@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     // A Round can't be created without an Report due to the foreign key constraint
     Round.belongsTo(models.Report, {
       foreignKey: {
-        allowNull: true
+        allowNull: false
       }
     });
 
