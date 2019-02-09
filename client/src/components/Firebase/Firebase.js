@@ -1,6 +1,7 @@
 // Firebase installation
 import app from 'firebase/app';
 import 'firebase/auth';
+import {} from 'dotenv/config';
 
 // Firebase configuration
 const config = {

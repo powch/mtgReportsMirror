@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { FormGroup, Label, Input } from 'reactstrap';
 
 export const FormInput = props => (
 
@@ -11,6 +11,7 @@ export const FormInput = props => (
         id={props.elementId}
         onChange={props.handleInputChange}
         placeholder={props.placeholder}
+        type={props.type ? props.type : null}
       />
     </FormGroup>
 

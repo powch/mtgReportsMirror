@@ -29,12 +29,27 @@ class NavTemplate extends Component {
           <NavbarToggler onClick={this.toggleNavbar} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/signin">Sign In</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/signup">Register</NavLink>
-              </NavItem>
+              {
+                this.props.authUser
+                ?
+                <div>
+                  <NavItem>
+                    <NavLink href='/profile'>Profile</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink onClick={this.props.doSignOut}>Sign Out</NavLink>
+                  </NavItem>
+                </div>
+                :
+                <div>
+                  <NavItem>
+                    <NavLink href="/signin">Sign In</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="/signup">Register</NavLink>
+                  </NavItem>
+                </div>
+              }
             </Nav>
           </Collapse>
         </Navbar>

@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { FormInput } from '../../components/Form';
 import { Form, Container, Row, Col, Button } from 'reactstrap';
+import { withFirebase } from '../../components/Firebase';
 
-class SignIn extends Component {
-  state = {
-    email: '',
-    emailConfirm: '',
-    password: '',
-    passwordConfirm: ''
-  };
+const INITIAL_STATE = {
+  userName: '',
+  email: '',
+  emailConfirm: '',
+  password: '',
+  passwordConfirm: '',
+  error: null
+}
+
+class SignUp extends Component {
+  state = { ...INITIAL_STATE };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -20,16 +25,50 @@ class SignIn extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
 
-    alert('hey poke');
+    const { userName, email, password } = this.state;
+
+    this.props.firebase
+      .doCreateUserWithEmailAndPassword(email, password)
+      .then(authUser => {
+        this.setState({ ...INITIAL_STATE });
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
   };
 
   render() {
-    return(
+
+    const {
+      userName,
+      email,
+      emailConfirm,
+      password,
+      passwordConfirm,
+      error
+    } = this.state;
+
+    const isInvalid =
+      password !== passwordConfirm ||
+      password === '' ||
+      email !== emailConfirm ||
+      email === '' ||
+      userName === '';
+
+    return (
       <Container>
         <Row>
           <Col sm='3' />
           <Col sm='6'>
-            <Form>
+            <Form onSubmit={this.handleFormSubmit}>
+              <FormInput
+                name='userName'
+                elementId='userName'
+                label='Username:'
+                placeholder='Choose a username'
+                value={this.state.userName}
+                handleInputChange={this.handleInputChange}
+              />
               <FormInput
                 name='email'
                 elementId='email'
@@ -51,6 +90,7 @@ class SignIn extends Component {
                 elementId='password'
                 label='Password:'
                 placeholder='Password'
+                type='password'
                 value={this.state.password}
                 handleInputChange={this.handleInputChange}
               />
@@ -59,17 +99,22 @@ class SignIn extends Component {
                 elementId='passwordConfirm'
                 label='Confirm Password:'
                 placeholder='Confirm your password'
+                type='password'
                 value={this.state.passwordConfirm}
                 handleInputChange={this.handleInputChange}
               />
-              <Button color='success'>Sign In</Button>
+              <Button disabled={isInvalid} type='submit' color='success'>
+                Sign In
+              </Button>
+
+              {error && <p>{error.message}</p>}
             </Form>
           </Col>
-          <Col sm='3'/>
+          <Col sm='3' />
         </Row>
       </Container>
     );
   }
 };
 
-export default SignIn;
+export default withFirebase(SignUp);

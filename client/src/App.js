@@ -48,7 +48,10 @@ class App extends Component {
       <Router>
         <div>
           
-          <Nav />
+          <Nav 
+            authUser={this.state.authUser}
+            doSignOut={this.props.firebase.doSignOut}
+          />
 
           <Route exact path={'/signup'} render={props => 
             (<SignUp authUser={this.state.authUser} />)} 
