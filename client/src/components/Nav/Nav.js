@@ -28,29 +28,29 @@ class NavTemplate extends Component {
           <NavbarBrand href="/">MTG Report</NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar} />
           <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              {
-                this.props.authUser
-                ?
-                <div>
-                  <NavItem>
-                    <NavLink href='/profile'>Profile</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink onClick={this.props.doSignOut}>Sign Out</NavLink>
-                  </NavItem>
-                </div>
-                :
-                <div>
-                  <NavItem>
-                    <NavLink href="/signin">Sign In</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href="/signup">Register</NavLink>
-                  </NavItem>
-                </div>
-              }
-            </Nav>
+            
+            {
+              this.props.authUser
+              ?
+              <Nav className='ml-auto' navbar>
+                <NavItem>
+                  <NavLink href='/profile'>Profile</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink onClick={this.props.doSignOut}>Sign Out</NavLink>
+                </NavItem>
+              </Nav>
+              :
+              <Nav className='ml-auto' navbar>
+                <NavItem>
+                  <NavLink href="/signin">Sign In</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/signup">Register</NavLink>
+                </NavItem>
+              </Nav>
+            }
+            
           </Collapse>
         </Navbar>
       </div>

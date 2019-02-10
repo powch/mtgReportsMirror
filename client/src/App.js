@@ -9,6 +9,7 @@ import Nav from './components/Nav';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import SubmitReport from './pages/SubmitReport';
+import HomePage from './pages/Home';
 
 class App extends Component {
 
@@ -53,6 +54,9 @@ class App extends Component {
             doSignOut={this.props.firebase.doSignOut}
           />
 
+          <Route exact path={'/'} render={props =>
+            (<HomePage authUser={this.state.authUser} />)}
+          />
           <Route exact path={'/signup'} render={props => 
             (<SignUp authUser={this.state.authUser} />)} 
           />
