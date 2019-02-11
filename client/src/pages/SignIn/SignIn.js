@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { FormInput } from '../../components/Form';
 import { Container, Row, Col, Form, Button } from 'reactstrap';
+import { withFirebase } from '../../components/Firebase';
+
+const INITIAL_STATE = {
+  email: '',
+  password: ''
+}
 
 class SignIn extends Component {
-  state = {
-    email: '',
-    password: ''
-  };
+  state = { ...INITIAL_STATE };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -18,16 +21,35 @@ class SignIn extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
 
-    alert('hey poke');
+    const { email, password } = this.state;
+
+    this.props.firebase
+      .doSignInWithEmailAndPassword(email, password)
+      .then(authUser => {
+        this.setState({ ...INITIAL_STATE });
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
   };
 
   render() {
+
+    const {
+      email,
+      password
+    } = this.state;
+
+    const isInvalid = 
+      password === '' ||
+      email === '';
+
     return (
       <Container>
         <Row>
           <Col sm="3" />
           <Col sm="6">
-            <Form>
+            <Form onSubmit={this.handleFormSubmit}>
               <FormInput
                 name="email"
                 elementId="email"
@@ -44,7 +66,7 @@ class SignIn extends Component {
                 value={this.state.password}
                 handleInputChange={this.handleInputChange}
               />
-              <Button color='success'>Sign In</Button>
+              <Button disabled={isInvalid} type='submit' color='success'>Sign In</Button>
             </Form>
           </Col>
           <Col sm="3" />
@@ -61,4 +83,4 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+export default withFirebase(SignIn);
