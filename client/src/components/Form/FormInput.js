@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormGroup, Label, Input } from 'reactstrap';
+import { FormGroup, FormFeedback, FormText,  Label, Input } from 'reactstrap';
 
 export const FormInput = props => (
 
@@ -12,7 +12,11 @@ export const FormInput = props => (
         onChange={props.handleInputChange}
         placeholder={props.placeholder}
         type={props.type ? props.type : null}
+        maxLength={props.maxLength ? props.maxLength : null}
+        invalid={props.error}
       />
+      <FormFeedback>{props.error}</FormFeedback>
+      <FormText>{props.helpText}</FormText>
     </FormGroup>
 
 );

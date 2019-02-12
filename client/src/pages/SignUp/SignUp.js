@@ -9,7 +9,8 @@ const INITIAL_STATE = {
   emailConfirm: '',
   password: '',
   passwordConfirm: '',
-  error: null
+  error: null,
+  errorType: null
 }
 
 class SignUp extends Component {
@@ -31,9 +32,21 @@ class SignUp extends Component {
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE });
+        console.log(authUser);
       })
       .catch(error => {
-        this.setState({ error });
+
+        if (error.code === 'auth/email-already-in-use') {
+          this.setState({
+            error: 'This email address is already in use.',
+            errorType: 'email'
+          });
+        } else if (error.code === 'auth/invalid-email') {
+          this.setState({
+            error: 'Please enter a valid email address.',
+            errorType: 'email'
+          });
+        }
       });
   };
 
@@ -50,10 +63,11 @@ class SignUp extends Component {
 
     const isInvalid =
       password !== passwordConfirm ||
-      password === '' ||
+      password.length < 6 ||
+      passwordConfirm.length < 6 ||
       email !== emailConfirm ||
       email === '' ||
-      userName === '';
+      userName.length < 3;
 
     return (
       <Container>
@@ -67,7 +81,9 @@ class SignUp extends Component {
                 label='Username:'
                 placeholder='Choose a username'
                 value={this.state.userName}
+                maxLength={25}
                 handleInputChange={this.handleInputChange}
+                helpText='Must be 3 - 25 characters. No special characters.'
               />
               <FormInput
                 name='email'
@@ -76,6 +92,8 @@ class SignUp extends Component {
                 placeholder='example@mail.com'
                 value={this.state.email}
                 handleInputChange={this.handleInputChange}
+                helpText='Enter valid email address.'
+                error={error ? error : null}
               />
               <FormInput
                 name='emailConfirm'
@@ -93,6 +111,7 @@ class SignUp extends Component {
                 type='password'
                 value={this.state.password}
                 handleInputChange={this.handleInputChange}
+                helpText='Minimum of 6 characters.'
               />
               <FormInput
                 name='passwordConfirm'

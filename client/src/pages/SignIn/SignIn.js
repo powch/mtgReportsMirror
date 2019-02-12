@@ -41,7 +41,7 @@ class SignIn extends Component {
     } = this.state;
 
     const isInvalid = 
-      password === '' ||
+      password.length < 6 ||
       email === '';
 
     return (
