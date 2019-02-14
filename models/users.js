@@ -6,7 +6,7 @@ module.exports = function (sequelize, DataTypes) {
       primaryKey: true
     },
 
-    profilePic: {
+    userName: {
       type: DataTypes.STRING,
       allowNull: false
     }

@@ -44,8 +44,7 @@ module.exports = {
     db.User.findOrCreate({
       where: { fbId: req.params.id },
       defaults: {
-        profilePic:
-          'https://s3.amazonaws.com/whisperinvest-images-prod/default-profile.png?dc=1548153033841'
+        userName: req.body.userName
       }
     })
       .then(dbUser => res.json(dbUser))

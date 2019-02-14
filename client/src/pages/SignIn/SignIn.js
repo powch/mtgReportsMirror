@@ -55,26 +55,35 @@ class SignIn extends Component {
                 elementId="email"
                 label="Email Address:"
                 value={this.state.email}
-                placeholder='example@mail.com'
+                placeholder="example@mail.com"
                 handleInputChange={this.handleInputChange}
               />
               <FormInput
                 name="password"
                 elementId="password"
                 label="Password:"
-                placeholder='Password'
+                placeholder="Password"
                 value={this.state.password}
                 handleInputChange={this.handleInputChange}
               />
-              <Button disabled={isInvalid} type='submit' color='success'>Sign In</Button>
+              <Button disabled={isInvalid} type="submit" color="success">
+                Sign In
+              </Button>
             </Form>
           </Col>
           <Col sm="3" />
         </Row>
         <Row className="mt-5">
           <Col sm="4" />
-          <Col sm="4">
-            Don't have an account? <a href='/signup'>Register here.</a>
+          <Col sm="4" className="text-center">
+            Don't have an account? <a href="/signup">Register here.</a>
+          </Col>
+          <Col sm="4" />
+        </Row>
+        <Row className="mt-1">
+          <Col sm="4" />
+          <Col sm="4" className="text-center">
+            <a href="/signup">Forgot your password?</a>
           </Col>
           <Col sm="4" />
         </Row>
