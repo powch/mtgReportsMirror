@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Wipe DB on start FOR DEV ONLY
-const syncOptions = { force: false };
+const syncOptions = { force: true };
 
 // Start the API server
 db.sequelize.sync(syncOptions).then(() => {

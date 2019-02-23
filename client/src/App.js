@@ -15,25 +15,26 @@ class App extends Component {
 
   state = {
     authUser: null,
-    role: null,
-    uid: null
+    uid: null,
+    userName: null
   }
 
   componentDidMount() {
     this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
       return ((authUser)
-        ? (this.setState({ authUser }),
-          this.setState({ uid: authUser.uid }),
-          //adds uid to state
-          API.findOrCreateUser({ uid: authUser.uid, fbId: authUser.fbId })
-            .catch(err => console.log(err)),
-          //Checks if user is in MYSQL DB.  Adds them if not.
-          API.getUserRole({ uid: authUser.uid })
-            .then(result => this.setState({ role: result.data.role }))
+        ? (this.setState({
+            authUser, 
+            uid: authUser.uid,
+            userName: authUser.displayName
+          }),
+          API.findOrCreateUser({ 
+            uid: authUser.uid,  
+            username: authUser.displayName
+          })
             .catch(err => console.log(err)))
-        //Gets user role from db.
+          //Checks if user is in MYSQL DB.  Adds them if not.
 
-        : (this.setState({ authUser: null, uid: null, role: null }))
+        : (this.setState({ authUser: null, uid: null, userName: null }))
         //Clears states when user is logged out.
 
       )
@@ -58,10 +59,10 @@ class App extends Component {
             (<HomePage authUser={this.state.authUser} />)}
           />
           <Route exact path={'/signup'} render={props => 
-            (<SignUp authUser={this.state.authUser} />)} 
+            (<SignUp authUser={this.state.authUser} {...props} />)} 
           />
           <Route exact path={'/signin'} render={props =>
-            (<SignIn authUser={this.state.authUser} />)} 
+            (<SignIn authUser={this.state.authUser} {...props} />)} 
           />
           <Route exact path={'/submitreport'} render={props =>
             (<SubmitReport authUser={this.state.authUser} />)}
