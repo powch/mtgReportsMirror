@@ -14,27 +14,16 @@ import HomePage from './pages/Home';
 class App extends Component {
 
   state = {
-    authUser: null,
-    uid: null,
-    userName: null
+    uid: null
   }
 
   componentDidMount() {
     this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
       return ((authUser)
         ? (this.setState({
-            authUser, 
-            uid: authUser.uid,
-            userName: authUser.displayName
-          }),
-          API.findOrCreateUser({ 
-            uid: authUser.uid,  
-            username: authUser.displayName
-          })
-            .catch(err => console.log(err)))
-          //Checks if user is in MYSQL DB.  Adds them if not.
-
-        : (this.setState({ authUser: null, uid: null, userName: null }))
+            uid: authUser.uid
+          }))
+        : (this.setState({ uid: null }))
         //Clears states when user is logged out.
 
       )
@@ -51,7 +40,7 @@ class App extends Component {
         <div>
           
           <Nav 
-            authUser={this.state.authUser}
+            uid={this.state.uid}
             doSignOut={this.props.firebase.doSignOut}
           />
 
@@ -59,7 +48,7 @@ class App extends Component {
             (<HomePage authUser={this.state.authUser} />)}
           />
           <Route exact path={'/signup'} render={props => 
-            (<SignUp authUser={this.state.authUser} {...props} />)} 
+            (<SignUp {...props} />)} 
           />
           <Route exact path={'/signin'} render={props =>
             (<SignIn authUser={this.state.authUser} {...props} />)} 
