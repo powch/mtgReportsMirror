@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
 
 class Home extends Component {
   render() {
-    return <Button />;
+    return <h3>Home Page</h3>;
   }
 };
 

@@ -14,14 +14,16 @@ import HomePage from './pages/Home';
 class App extends Component {
 
   state = {
-    uid: null
+    uid: null,
+    userName: null
   }
 
   componentDidMount() {
     this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
       return ((authUser)
         ? (this.setState({
-            uid: authUser.uid
+            uid: authUser.uid,
+            userName: authUser.displayName
           }))
         : (this.setState({ uid: null }))
         //Clears states when user is logged out.
@@ -41,20 +43,21 @@ class App extends Component {
           
           <Nav 
             uid={this.state.uid}
+            userName={this.state.userName}
             doSignOut={this.props.firebase.doSignOut}
           />
 
           <Route exact path={'/'} render={props =>
-            (<HomePage authUser={this.state.authUser} />)}
+            (<HomePage uid={this.state.uid} />)}
           />
           <Route exact path={'/signup'} render={props => 
             (<SignUp {...props} />)} 
           />
           <Route exact path={'/signin'} render={props =>
-            (<SignIn authUser={this.state.authUser} {...props} />)} 
+            (<SignIn {...props} />)} 
           />
           <Route exact path={'/submitreport'} render={props =>
-            (<SubmitReport authUser={this.state.authUser} />)}
+            (<SubmitReport uid={this.state.uid} />)}
           />
         </div>
       </Router>

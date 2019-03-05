@@ -3,18 +3,16 @@ import { FormInput } from '../../components/Form';
 import { Form, Container, Row, Col, Button } from 'reactstrap';
 import { withFirebase } from '../../components/Firebase';
 
-const INITIAL_STATE = {
-  userName: '',
-  email: '',
-  emailConfirm: '',
-  password: '',
-  passwordConfirm: '',
-  error: null,
-  errorType: null
-}
-
 class SignUp extends Component {
-  state = { ...INITIAL_STATE };
+  state = {
+    userName: '',
+    email: '',
+    emailConfirm: '',
+    password: '',
+    passwordConfirm: '',
+    error: null,
+    errorType: null 
+  };
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -31,8 +29,9 @@ class SignUp extends Component {
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
-        this.props.history.push('/')
-        console.log(authUser)
+        this.props.firebase
+          .doProfileUpdate(userName);
+        this.props.history.push('/');
       })
       .catch(error => {
 

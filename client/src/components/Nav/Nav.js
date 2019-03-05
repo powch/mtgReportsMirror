@@ -34,7 +34,7 @@ class NavTemplate extends Component {
               ?
               <Nav className='ml-auto' navbar>
                 <NavItem>
-                  <NavLink href='/profile'>Profile</NavLink>
+                  <NavLink href='/profile'>{this.props.userName}</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink onClick={this.props.doSignOut}>Sign Out</NavLink>
