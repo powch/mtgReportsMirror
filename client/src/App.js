@@ -15,20 +15,33 @@ class App extends Component {
 
   state = {
     uid: null,
-    userName: null
+    userName: null,
+    userReports: null
   }
 
   componentDidMount() {
     this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-      return ((authUser)
-        ? (this.setState({
-            uid: authUser.uid,
-            userName: authUser.displayName
-          }))
-        : (this.setState({ uid: null }))
-        //Clears states when user is logged out.
+      console.log(authUser);
 
-      )
+      
+      if ( authUser ) {
+        this.setState({
+          uid: authUser.uid,
+          userName: authUser.displayName
+        });
+        API.findOrCreateUser({
+          uid: this.state.uid,
+          userName: this.state.userName
+        })
+        .then(res => {
+          API.getUserReports({ uid: this.state.uid })
+          .then(res => this.setState({ userReports: res.data.Reports }))
+        });
+  
+        
+      } else {
+        this.setState({ uid: null, userName: null, userReports: null });
+      }
     })
   }
 

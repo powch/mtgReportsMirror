@@ -24,7 +24,7 @@ class NavTemplate extends Component {
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="lg">
+        <Navbar color="light" light expand="lg" className="mb-3">
           <NavbarBrand href="/">MTG Report</NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar} />
           <Collapse isOpen={this.state.isOpen} navbar>

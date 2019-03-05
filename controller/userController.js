@@ -4,20 +4,25 @@ module.exports = {
 
   findOne: (req, res) => {
     db.User.findOne({
-      where: { fbId: req.params.id },
+      where: { uid: req.params.id },
       include: [
         {
           model: db.Report,
           include: [
             {
-              model: db.Round
+              model: db.Round,
+              include: [
+                {
+                  model: db.sideboardRecommendation
+                }
+              ]
             }
           ]
         }
       ]
     })
-    .then(foundUser => res.json(foundUser))
-    .catch(err => res.status(422).json(err));
+      .then(foundUser => res.json(foundUser))
+      .catch(err => res.status(422).json(err));
   },
 
   findOneReports: (req, res) => {
@@ -42,7 +47,7 @@ module.exports = {
 
   findOrCreate: (req, res) => {
     db.User.findOrCreate({
-      where: { fbId: req.params.id },
+      where: { uid: req.params.id },
       defaults: {
         userName: req.body.userName
       }

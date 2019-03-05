@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "",
+    "password": "root",
     "database": "mtgreport_db",
     "host": "localhost",
     "dialect": "mysql"
