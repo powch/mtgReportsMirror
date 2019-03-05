@@ -26,11 +26,13 @@ class SignUp extends Component {
 
     const { userName, email, password } = this.state;
 
+    this.props.getUsername( userName );
+
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
         this.props.firebase
-          .doProfileUpdate(userName)
+          .doProfileUpdate( userName )
           .then(user => this.props.history.push('/'));
       })
       .catch(error => {

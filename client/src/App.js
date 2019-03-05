@@ -22,21 +22,21 @@ class App extends Component {
   componentDidMount() {
     this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
       console.log(authUser);
-
       
       if ( authUser ) {
         this.setState({
           uid: authUser.uid,
-          userName: authUser.displayName
         });
         API.findOrCreateUser({
-          uid: this.state.uid,
+          uid: authUser.uid,
           userName: this.state.userName
         })
         .then(res => {
-          API.getUserReports({ uid: this.state.uid })
+          API.getUserReports({ uid: authUser.uid })
           .then(res => this.setState({ userReports: res.data.Reports }))
-        });
+          .catch(err => console.log(err))
+        })
+        .catch(err => console.log(err));
   
         
       } else {
@@ -47,6 +47,10 @@ class App extends Component {
 
   componentWillUnmount() {
     this.listener();
+  }
+
+  getUsername = userName => {
+    this.setState({ userName });
   }
 
   render() {
@@ -63,7 +67,7 @@ class App extends Component {
             (<HomePage {...props} />)}
           />
           <Route exact path={'/signup'} render={props => 
-            (<SignUp {...props} />)} 
+            (<SignUp getUsername={this.getUsername} {...props} />)} 
           />
           <Route exact path={'/signin'} render={props =>
             (<SignIn {...props} />)} 
