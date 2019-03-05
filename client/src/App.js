@@ -42,13 +42,12 @@ class App extends Component {
         <div>
           
           <Nav 
-            uid={this.state.uid}
             userName={this.state.userName}
             doSignOut={this.props.firebase.doSignOut}
           />
 
           <Route exact path={'/'} render={props =>
-            (<HomePage uid={this.state.uid} />)}
+            (<HomePage {...props} />)}
           />
           <Route exact path={'/signup'} render={props => 
             (<SignUp {...props} />)} 

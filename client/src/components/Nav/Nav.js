@@ -30,7 +30,7 @@ class NavTemplate extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             
             {
-              this.props.uid
+              this.props.userName
               ?
               <Nav className='ml-auto' navbar>
                 <NavItem>
