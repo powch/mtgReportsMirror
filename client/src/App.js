@@ -16,7 +16,8 @@ class App extends Component {
   state = {
     uid: null,
     userName: null,
-    userReports: null
+    userReports: null,
+    isNewUser: false
   }
 
   componentDidMount() {
@@ -27,16 +28,31 @@ class App extends Component {
         this.setState({
           uid: authUser.uid,
         });
-        API.findOrCreateUser({
-          uid: authUser.uid,
-          userName: this.state.userName
-        })
-        .then(res => {
-          API.getUserReports({ uid: authUser.uid })
-          .then(res => this.setState({ userReports: res.data.Reports }))
-          .catch(err => console.log(err))
-        })
-        .catch(err => console.log(err));
+        if ( this.state.isNewUser ) {
+          API.findOrCreateUser({
+            uid: authUser.uid,
+            userName: this.state.userName
+          })
+            .then(res => {
+              API.getUserReports({ uid: authUser.uid })
+                .then(res => this.setState({ userReports: res.data.Reports }))
+                .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err));
+        } else {
+          API.findOrCreateUser({
+            uid: authUser.uid,
+            userName: authUser.displayName
+          })
+            .then(res => {
+              console.log(res);
+              this.setState({ userName: res.data[0].userName });
+              API.getUserReports({ uid: authUser.uid })
+                .then(res => this.setState({ userReports: res.data.Reports }))
+                .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
+        }
   
         
       } else {
@@ -50,7 +66,7 @@ class App extends Component {
   }
 
   getUsername = userName => {
-    this.setState({ userName });
+    this.setState({ userName, isNewUser: true });
   }
 
   render() {
