@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Report from '../../components/Report';
+import Round from '../../components/Round';
 
 class SubmitReport extends Component {
   state = {
@@ -11,30 +12,21 @@ class SubmitReport extends Component {
       {
         round: 1,
         opponentDeck: '',
-        score: {
-          wins: 0,
-          losses: 0
-        },
+        score: '',
         sideboardRecommendation: '',
         notes: ''
       },
       {
         round: 2,
         opponentDeck: '',
-        score: {
-          wins: 0,
-          losses: 0
-        },
+        score: '',
         sideboardRecommendation: '',
         notes: ''
       },
       {
         round: 3,
         opponentDeck: '',
-        score: {
-          wins: 0,
-          losses: 0
-        },
+        score: '',
         sideboardRecommendation: '',
         notes: ''
       }
@@ -56,6 +48,9 @@ class SubmitReport extends Component {
     switch (this.state.currentPage) {
       case 'Report':
         return <Report handleInputChange={this.handleInputChange} handlePageChange={this.handlePageChange} />
+
+      case 'Round':
+        return <Round handleInputChange={this.handleInputChange} />
 
       
     

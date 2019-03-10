@@ -1,9 +1,16 @@
 import React from 'react';
 import { Form, FormGroup,Label, Input, Container, Row, Col, Button } from 'reactstrap';
-import deckList from './deckList';
+import deckList from '../../deckList';
 
 const Report = props => (
   <Container>
+    <Row className='mb-3'>
+      <Col sm='3' />
+      <Col sm='6'>
+        <h3>Report</h3>
+      </Col>
+      <Col sm='3' />
+    </Row>
     <Row>
       <Col sm="3" />
       <Col sm="6">
@@ -31,7 +38,7 @@ const Report = props => (
             </Input>
           </FormGroup>
 
-          <Button color="success" onClick={() => props.changePage('Round')}>
+          <Button color="success" onClick={() => props.handlePageChange('Round')}>
             Add Rounds
           </Button>
         </Form>
