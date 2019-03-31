@@ -4,27 +4,14 @@ import Round from '../../components/Round';
 
 class SubmitReport extends Component {
   state = {
-    currentPage: 'Report',
+    selectedRound: 1,
+    pageToRender: 'Report',
     format: '',
     event: '',
     userDeck: '',
     rounds: [
       {
-        round: 1,
-        opponentDeck: '',
-        score: '',
-        sideboardRecommendation: '',
-        notes: ''
-      },
-      {
-        round: 2,
-        opponentDeck: '',
-        score: '',
-        sideboardRecommendation: '',
-        notes: ''
-      },
-      {
-        round: 3,
+        roundNumber: 1,
         opponentDeck: '',
         score: '',
         sideboardRecommendation: '',
@@ -34,7 +21,7 @@ class SubmitReport extends Component {
   };
 
   handlePageChange = page => {
-    this.setState({ currentPage: page });
+    this.setState({ pageToRender: page });
   };
 
   handleInputChange = event => {
@@ -44,13 +31,38 @@ class SubmitReport extends Component {
     });
   };
 
+  roundConcat = () => {
+    this.setState({
+      rounds: this.state.rounds.concat({
+        roundNumber: this.state.rounds.length + 1,
+        opponentDeck: '',
+        score: '',
+        sideboardRecommendation: '',
+        notes: ''
+       })
+    });
+  };
+
+  changeSelectedRound = round => {
+    this.setState({ selectedRound: round })
+  }
+
   pageRender() {
-    switch (this.state.currentPage) {
+    switch (this.state.pageToRender) {
       case 'Report':
-        return <Report handleInputChange={this.handleInputChange} handlePageChange={this.handlePageChange} />
+        return <Report 
+                  handleInputChange={this.handleInputChange} 
+                  handlePageChange={this.handlePageChange} 
+                />
 
       case 'Round':
-        return <Round handleInputChange={this.handleInputChange} />
+        return <Round 
+                  rounds={this.state.rounds} 
+                  roundConcat={this.roundConcat}
+                  selectedRound={this.state.selectedRound}
+                  changeSelectedRound={this.changeSelectedRound}
+                  handleInputChange={this.handleInputChange} 
+                />
 
       
     

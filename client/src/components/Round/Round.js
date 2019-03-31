@@ -1,15 +1,30 @@
 import React from 'react';
-import { Form, FormGroup, Label, Input, Container, Row, Col, Button, ButtonGroup } from 'reactstrap';
+import {
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Container,
+  Row,
+  Col,
+  Button
+} from 'reactstrap';
+import RoundNav from '../RoundNav';
 import deckList from '../../deckList';
 
 const Round = props => (
   <Container>
-    <Row className="mb-3">
-      <Col sm="3" />
-      <Col sm="6">
+    <RoundNav
+      rounds={props.rounds} 
+      roundConcat={props.roundConcat}
+      changeSelectedRound={props.changeSelectedRound}
+    />
+    <Row className='mb-3'>
+      <Col sm='3' />
+      <Col sm='6'>
         <h3>Report</h3>
       </Col>
-      <Col sm="3" />
+      <Col sm='3' />
     </Row>
     <Row>
       <Col sm='3' />
@@ -18,25 +33,35 @@ const Round = props => (
           <FormGroup>
             <Label>Opponent Deck:</Label>
             <Input
-              type="select"
-              name="opponentDeck"
+              type='select'
+              name='opponentDeck'
               onChange={props.handleInputChange}
+              defaultValue={'DEFAULT'}
             >
-              <option selected disabled>
+              <option value='DEFAULT' disabled>
                 Select a deck
-          </option>
+              </option>
               {deckList.map((deck, idx) => (
                 <option key={idx}>{deck}</option>
               ))}
             </Input>
           </FormGroup>
-          <Label>Result:</Label>
           <FormGroup>
-            <ButtonGroup>
-              <Button color="primary">Win</Button>
-              <Button color="primary">Loss</Button>
-            </ButtonGroup>
+            <Label>Result:</Label>
+            <Input
+              type='select'
+              name='result'
+              onChange={props.handleInputChange}
+              defaultValue={'DEFAULT'}
+            >
+              <option value='DEFAULT' disabled>
+                Round results
+              </option>
+              <option>Won</option>
+              <option>Lost</option>
+            </Input>
           </FormGroup>
+          <Button onClick={() => props.roundConcat()}>Test</Button>
         </Form>
       </Col>
       <Col sm='3' />
