@@ -16,7 +16,7 @@ const RoundNav = props => {
                   props.changeActiveRound(idx)
                 }
               >
-                {round.roundNumber}
+                {idx + 1}
               </NavLink>
             </NavItem>
           );

@@ -11,10 +11,9 @@ class SubmitReport extends Component {
     userDeck: 'DEFAULT',
     rounds: [
       {
-        roundNumber: 1,
         opponentDeck: 'DEFAULT',
         result: 'DEFAULT',
-        sideboardRecommendation: '',
+        sideboardRecommendation: 'DEFAULT',
         notes: ''
       }
     ]
@@ -59,10 +58,23 @@ class SubmitReport extends Component {
             [name]: value
           }
         } else {
-          return round;
+          return round
         }
       })
       return {
+        rounds
+      }
+    })
+  }
+
+  deleteActiveRound = () => {
+    this.setState(state => {
+      const rounds = state.rounds.filter((round, i) => {
+        return i !== this.state.activeRound
+      })
+
+      return {
+        activeRound: (this.state.activeRound === 0) ? 0 : this.state.activeRound - 1,
         rounds
       }
     })
@@ -86,6 +98,7 @@ class SubmitReport extends Component {
                   activeRound={this.state.activeRound}
                   roundToBeEdited={this.state.rounds[this.state.activeRound]}
                   editActiveRound={this.editActiveRound}
+                  deleteActiveRound={this.deleteActiveRound}
                   changeActiveRound={this.changeActiveRound}
                   handlePageChange={this.handlePageChange}
                 />

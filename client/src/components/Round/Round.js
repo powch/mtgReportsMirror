@@ -101,7 +101,7 @@ const Round = props => (
             <Col className='d-flex justify-content-start' xs='6'>
               {
                 (props.rounds.length > 1) ?
-                  <Button color='danger' onClick={() => props.roundConcat()}>
+                  <Button color='danger' onClick={() => props.deleteActiveRound()}>
                     <FontAwesomeIcon icon={faTimesCircle} /> Delete
                   </Button> :
                   null
