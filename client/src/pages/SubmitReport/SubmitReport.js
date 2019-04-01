@@ -4,11 +4,11 @@ import Round from '../../components/Round';
 
 class SubmitReport extends Component {
   state = {
-    selectedRound: 1,
+    activeRound: null,
     pageToRender: 'Report',
-    format: '',
+    format: 'DEFAULT',
     event: '',
-    userDeck: '',
+    userDeck: 'DEFAULT',
     rounds: [
       {
         roundNumber: 1,
@@ -19,6 +19,13 @@ class SubmitReport extends Component {
       }
     ]
   };
+
+  componentWillMount = () => {
+    this.setState({
+      activeRound: this.state.rounds[0]
+    });
+  };
+  
 
   handlePageChange = page => {
     this.setState({ pageToRender: page });
@@ -43,14 +50,17 @@ class SubmitReport extends Component {
     });
   };
 
-  changeSelectedRound = round => {
-    this.setState({ selectedRound: round })
+  changeActiveRound = round => {
+    this.setState({ activeRound: this.state.rounds[round - 1] })
   }
 
   pageRender() {
     switch (this.state.pageToRender) {
       case 'Report':
-        return <Report 
+        return <Report
+                  format={this.state.format}
+                  event={this.state.event}
+                  userDeck={this.state.userDeck}
                   handleInputChange={this.handleInputChange} 
                   handlePageChange={this.handlePageChange} 
                 />
@@ -59,9 +69,10 @@ class SubmitReport extends Component {
         return <Round 
                   rounds={this.state.rounds} 
                   roundConcat={this.roundConcat}
-                  selectedRound={this.state.selectedRound}
-                  changeSelectedRound={this.changeSelectedRound}
-                  handleInputChange={this.handleInputChange} 
+                  activeRound={this.state.activeRound}
+                  changeActiveRound={this.changeActiveRound}
+                  handleInputChange={this.handleInputChange}
+                  handlePageChange={this.handlePageChange}
                 />
 
       

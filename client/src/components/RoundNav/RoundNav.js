@@ -5,12 +5,18 @@ const RoundNav = props => {
   return (
     <Nav tabs>
       {
-        props.rounds.map(round => {
-          return(
-            <NavItem>
-              <NavLink onClick={() => props.changeSelectedRound(round.roundNumber)}>{round.roundNumber}</NavLink>
+        props.rounds.map((round, idx) => {
+          return (
+            <NavItem key={`10${idx}`}>
+              <NavLink
+                onClick={() =>
+                  props.changeActiveRound(round.roundNumber)
+                }
+              >
+                {round.roundNumber}
+              </NavLink>
             </NavItem>
-          )
+          );
         })
       }
       <NavItem>

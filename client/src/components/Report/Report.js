@@ -29,9 +29,9 @@ const Report = props => (
             <Input
               type='select'
               name='format'
+              value={props.format}
               id='formatSelect'
               onChange={props.handleInputChange}
-              defaultValue={'DEFAULT'}
             >
               <option value='DEFAULT' disabled>
                 Select a format
@@ -45,6 +45,7 @@ const Report = props => (
             <Input
               type='text'
               name='event'
+              value={props.event}
               placeholder='Event Name'
               onChange={props.handleInputChange}
             />
@@ -55,9 +56,9 @@ const Report = props => (
             <Input
               type='select'
               name='userDeck'
+              value={props.userDeck}
               id='deckSelect'
               onChange={props.handleInputChange}
-              defaultValue={'DEFAULT'}
             >
               <option value='DEFAULT' disabled>
                 Select a deck

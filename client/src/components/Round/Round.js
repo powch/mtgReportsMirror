@@ -14,17 +14,31 @@ import deckList from '../../deckList';
 
 const Round = props => (
   <Container>
-    <RoundNav
-      rounds={props.rounds} 
-      roundConcat={props.roundConcat}
-      changeSelectedRound={props.changeSelectedRound}
-    />
-    <Row className='mb-3'>
-      <Col sm='3' />
+    <Row className='mb-3 mt-3'>
+      <Col sm='3'></Col>
       <Col sm='6'>
-        <h3>Report</h3>
+        <Row>
+          <Col sm='3'>
+            <h3>Rounds</h3>
+          </Col>
+          <Col sm='5'></Col>
+          <Col sm='3'>
+            <Button
+              onClick={() => props.handlePageChange('Report')}
+            >Back to Report</Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm='12'>
+            <RoundNav
+              rounds={props.rounds}
+              roundConcat={props.roundConcat}
+              changeActiveRound={props.changeActiveRound}
+            />
+          </Col>
+        </Row>
       </Col>
-      <Col sm='3' />
+      <Col sm='3'></Col>
     </Row>
     <Row>
       <Col sm='3' />
