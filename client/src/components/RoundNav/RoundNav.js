@@ -9,8 +9,9 @@ const RoundNav = props => {
           return (
             <NavItem key={`10${idx}`}>
               <NavLink
+                active={props.activeRound === idx}
                 onClick={() =>
-                  props.changeActiveRound(round.roundNumber)
+                  props.changeActiveRound(idx)
                 }
               >
                 {round.roundNumber}

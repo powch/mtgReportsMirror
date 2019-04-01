@@ -4,7 +4,7 @@ import Round from '../../components/Round';
 
 class SubmitReport extends Component {
   state = {
-    activeRound: null,
+    activeRound: 0,
     pageToRender: 'Report',
     format: 'DEFAULT',
     event: '',
@@ -12,18 +12,12 @@ class SubmitReport extends Component {
     rounds: [
       {
         roundNumber: 1,
-        opponentDeck: '',
-        score: '',
+        opponentDeck: 'DEFAULT',
+        result: 'DEFAULT',
         sideboardRecommendation: '',
         notes: ''
       }
     ]
-  };
-
-  componentWillMount = () => {
-    this.setState({
-      activeRound: this.state.rounds[0]
-    });
   };
   
 
@@ -40,18 +34,38 @@ class SubmitReport extends Component {
 
   roundConcat = () => {
     this.setState({
+      activeRound: this.state.rounds.length,
       rounds: this.state.rounds.concat({
         roundNumber: this.state.rounds.length + 1,
-        opponentDeck: '',
-        score: '',
-        sideboardRecommendation: '',
+        opponentDeck: 'DEFAULT',
+        result: 'DEFAULT',
+        sideboardRecommendation: 'DEFAULT',
         notes: ''
        })
     });
   };
 
-  changeActiveRound = round => {
-    this.setState({ activeRound: this.state.rounds[round - 1] })
+  changeActiveRound = roundIdx => {
+    this.setState({ activeRound: roundIdx })
+  }
+
+  editActiveRound = event => {
+    const { name, value } = event.target;
+    this.setState(state => {
+      const rounds = state.rounds.map(( round, i ) => {
+        if ( i === state.activeRound ) {
+          return {
+            ...round,
+            [name]: value
+          }
+        } else {
+          return round;
+        }
+      })
+      return {
+        rounds
+      }
+    })
   }
 
   pageRender() {
@@ -70,8 +84,9 @@ class SubmitReport extends Component {
                   rounds={this.state.rounds} 
                   roundConcat={this.roundConcat}
                   activeRound={this.state.activeRound}
+                  roundToBeEdited={this.state.rounds[this.state.activeRound]}
+                  editActiveRound={this.editActiveRound}
                   changeActiveRound={this.changeActiveRound}
-                  handleInputChange={this.handleInputChange}
                   handlePageChange={this.handlePageChange}
                 />
 

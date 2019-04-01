@@ -32,6 +32,7 @@ const Round = props => (
           <Col sm='12'>
             <RoundNav
               rounds={props.rounds}
+              activeRound={props.activeRound}
               roundConcat={props.roundConcat}
               changeActiveRound={props.changeActiveRound}
             />
@@ -49,8 +50,8 @@ const Round = props => (
             <Input
               type='select'
               name='opponentDeck'
-              onChange={props.handleInputChange}
-              defaultValue={'DEFAULT'}
+              onChange={props.editActiveRound}
+              value={props.roundToBeEdited.opponentDeck}
             >
               <option value='DEFAULT' disabled>
                 Select a deck
@@ -65,8 +66,8 @@ const Round = props => (
             <Input
               type='select'
               name='result'
-              onChange={props.handleInputChange}
-              defaultValue={'DEFAULT'}
+              onChange={props.editActiveRound}
+              value={props.roundToBeEdited.result}
             >
               <option value='DEFAULT' disabled>
                 Round results
