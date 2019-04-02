@@ -66,18 +66,32 @@ class SubmitReport extends Component {
   };
 
   deleteActiveRound = () => {
-    this.setState(state => {
-      const rounds = state.rounds.filter(
-        (round, i) => i !== this.state.activeRound
-      );
+    const confirmDelete = window.confirm('Are you sure you want to delete this round?')
 
-      return {
-        activeRound:
-          this.state.activeRound === 0 ? 0 : this.state.activeRound - 1,
-        rounds
-      };
-    });
+    if (confirmDelete) {
+      this.setState(state => {
+        const rounds = state.rounds.filter(
+          (round, i) => i !== this.state.activeRound
+        );
+
+        return {
+          activeRound:
+            this.state.activeRound === 0 ? 0 : this.state.activeRound - 1,
+          rounds
+        };
+      });
+    }
   };
+
+  handleReportSubmit = event => {
+    event.preventDefault()
+    const confirmSubmit = window.confirm('Are you sure you want to submit this report?')
+
+    if (confirmSubmit) {
+      //put API POST stuff here
+    }
+
+  }
 
   pageRender() {
 
@@ -107,6 +121,7 @@ class SubmitReport extends Component {
             editActiveRound={this.editActiveRound}
             deleteActiveRound={this.deleteActiveRound}
             changeActiveRound={this.changeActiveRound}
+            handleReportSubmit={this.handleReportSubmit}
             handlePageChange={this.handlePageChange}
           />
         );

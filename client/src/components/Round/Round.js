@@ -50,7 +50,7 @@ const Round = props => (
     <Row>
       <Col sm='3' />
       <Col sm='6'>
-        <Form>
+        <Form onSubmit={props.handleReportSubmit}>
           <Row>
             <Col sm='12'>
               <FormGroup>
