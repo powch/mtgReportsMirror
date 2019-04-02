@@ -35,7 +35,6 @@ class SubmitReport extends Component {
     this.setState({
       activeRound: this.state.rounds.length,
       rounds: this.state.rounds.concat({
-        roundNumber: this.state.rounds.length + 1,
         opponentDeck: 'DEFAULT',
         result: 'DEFAULT',
         sideboardRecommendation: 'DEFAULT',
