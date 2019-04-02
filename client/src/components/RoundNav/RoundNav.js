@@ -1,5 +1,7 @@
 import React from 'react'
 import { Nav, NavItem, NavLink } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const RoundNav = props => {
   return (
@@ -21,7 +23,9 @@ const RoundNav = props => {
         })
       }
       <NavItem>
-        <NavLink onClick={() => props.roundConcat()}>+</NavLink>
+        <NavLink onClick={() => props.roundConcat()}>
+          <FontAwesomeIcon icon={faPlus} />
+        </NavLink>
       </NavItem>
     </Nav>
   )
