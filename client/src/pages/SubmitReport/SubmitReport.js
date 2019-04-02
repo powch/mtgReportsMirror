@@ -90,8 +90,6 @@ class SubmitReport extends Component {
                   handlePageChange={this.handlePageChange}
                 />
 
-      
-    
       default:
         break;
     }

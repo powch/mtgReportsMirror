@@ -89,7 +89,7 @@ class App extends Component {
             (<SignIn {...props} />)} 
           />
           <Route exact path={'/submitreport'} render={props =>
-            (<SubmitReport uid={this.state.uid} />)}
+            (<SubmitReport uid={this.state.uid} {...props} />)}
           />
         </div>
       </Router>
