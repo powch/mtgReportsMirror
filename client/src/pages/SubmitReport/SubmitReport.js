@@ -89,6 +89,8 @@ class SubmitReport extends Component {
 
     if (confirmSubmit) {
       //put API POST stuff here
+
+      this.props.history.push('/')
     }
 
   }
