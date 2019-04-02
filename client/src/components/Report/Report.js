@@ -78,6 +78,7 @@ const Report = props => (
             <Col className='d-flex justify-content-end' sm='12'>
               <Button
                 color='success'
+                disabled={props.isReportInvalid}
                 onClick={() => props.handlePageChange('Round')}
               >
                 Add Rounds <FontAwesomeIcon icon={faAngleRight}/>
