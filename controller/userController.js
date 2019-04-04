@@ -4,10 +4,12 @@ module.exports = {
 
   create: (req, res) => {
     db.User.create( req.body )
+      .then(newUser => res.json(newUser))
+      .catch(err => res.status(422).json(err))
   },
 
   findOneAndPopulate: (req, res) => {
-    db.User.fineOne({ uid: req.body.uid })
+    db.User.findOne({ uid: req.params.id })
       .populate('report')
       .then(userReports => res.json(userReports))
       .catch(err => res.status(422).json(err))
