@@ -5,6 +5,14 @@ const ReportSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  fbId: {
+    type: String,
+    required: 'fbId is required'
+  },
+  reportedBy: {
+    type: String,
+    required: 'Reported by name is required'
+  },
   format: {
     type: String,
     required: 'Format is required'

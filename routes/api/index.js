@@ -6,7 +6,7 @@ const sideboardRoutes = require('./sideboards');
 
 router.use('/user', userRoutes);
 router.use('/report', reportRoutes);
-router.use('/round', roundRoutes);
-router.use('/sideboard', sideboardRoutes);
+// router.use('/round', roundRoutes);
+// router.use('/sideboard', sideboardRoutes);
 
 module.exports = router;

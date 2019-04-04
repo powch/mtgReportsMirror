@@ -6,7 +6,7 @@ module.exports = {
     db.Report.create( req.body )
       .then(newReport => {
         return db.User.findOneAndUpdate(
-          { uid: req.params.uid },
+          { fbId: req.params.id },
           { report: newReport._id },
           { new: true }
         )
