@@ -8,6 +8,5 @@ router
 
 router
   .route('/:id')
-  .get(reportController.findAll)
   .post(reportController.create);
 module.exports = router;
