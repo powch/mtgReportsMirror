@@ -13,7 +13,7 @@ const deckList = [
   'Stoneblade',
   'Loam',
   'Lands',
-  'Show and Tell',
+  'Show & Tell',
   'Storm',
   'Reanimator',
   'Dredge',

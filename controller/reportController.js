@@ -16,7 +16,7 @@ module.exports = {
   },
 
   findAll: (req, res) => {
-    db.Report.find({})
+    db.Report.find({}).sort({date: -1})
       .then(reports => res.json(reports))
       .catch(err => res.status(422).json(err))
   }

@@ -20,7 +20,7 @@ class App extends Component {
     dbReports: []
   }
 
-  componentDidMount() {
+  componentWillMount() {
     
     this.refreshHomeReports();
 
@@ -39,7 +39,6 @@ class App extends Component {
         } else {
           API.getUserInfo( authUser.uid )
             .then(info => {
-              console.log(info.data.displayName)
               this.setState({ displayName: info.data.displayName })
             })
             .catch(err => console.log(err))
@@ -69,6 +68,11 @@ class App extends Component {
   }
 
   render() {
+
+    const recentUpdates = this.state.dbReports.filter((report, idx) => {
+      return idx < 10
+    })
+
     return (
       <Router>
         <div>
@@ -79,7 +83,7 @@ class App extends Component {
           />
 
           <Route exact path={'/'} render={props =>
-            (<HomePage {...props} />)}
+            (<HomePage recentUpdates={recentUpdates} {...props} />)}
           />
           <Route exact path={'/signup'} render={props => 
             (<SignUp getUsername={this.getUsername} {...props} />)} 

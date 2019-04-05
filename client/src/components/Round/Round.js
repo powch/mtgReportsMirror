@@ -80,8 +80,8 @@ const Round = props => (
                   <option value='DEFAULT' disabled>
                     Round results
                   </option>
-                  <option>Won</option>
-                  <option>Lost</option>
+                  <option>Win</option>
+                  <option>Lose</option>
                 </Input>
               </FormGroup>
               <FormGroup>

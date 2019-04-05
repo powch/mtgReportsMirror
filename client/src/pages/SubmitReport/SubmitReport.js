@@ -102,7 +102,7 @@ class SubmitReport extends Component {
         ...report
       })
 
-      this.props.refreshHomeReports();
+      this.props.refreshHomeReports()
       this.props.history.push('/')
     }
 
