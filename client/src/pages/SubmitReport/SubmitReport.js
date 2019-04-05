@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Report from '../../components/Report';
 import Round from '../../components/Round';
+import API from '../../utils/API';
 
 class SubmitReport extends Component {
   state = {
@@ -88,8 +89,20 @@ class SubmitReport extends Component {
     const confirmSubmit = window.confirm('Are you sure you want to submit this report?')
 
     if (confirmSubmit) {
-      //put API POST stuff here
+      const {
+        a,
+        b,
+        ...report
+      } = this.state;
 
+      //put API POST stuff here
+      API.submitReport({
+        fbId: this.props.fbId,
+        reportedBy: this.props.displayName,
+        ...report
+      })
+
+      this.props.refreshHomeReports();
       this.props.history.push('/')
     }
 
