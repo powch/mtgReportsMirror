@@ -11,10 +11,9 @@ module.exports = {
       .catch(err => res.status(422).json(err))
   },
 
-  findOneAndPopulate: (req, res) => {
-    db.User.findOne({ uid: req.params.id })
-      .populate('report')
-      .then(userReports => res.json(userReports))
+  findOne: (req, res) => {
+    db.User.findOne({ fbId: req.params.id })
+      .then(userInfo => res.json(userInfo))
       .catch(err => res.status(422).json(err))
   }
 
