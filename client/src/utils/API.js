@@ -1,15 +1,18 @@
 import axios from 'axios';
 
 export default {
-  //Get user's role
-  getUserReports: function (userData) {
-    return axios.get(`/api/user/${userData.uid}`);
-  },
-  // Finds User if they exist, or creates User
-  findOrCreateUser: function (userData) {
-    return axios.post(`/api/user/${userData.uid}`, { 
-      uid: userData.uid,
-      userName: userData.userName
+  // creates User
+  createUser: userData => {
+    return axios.post(`/api/user/${userData.fbId}`, { 
+      displayName: userData.displayName
     })
+  },
+  // Get user info
+  getUserInfo: fbId => {
+    return axios.get(`/api/user/${fbId}`)
+  },
+  // Get all reports
+  getAllReports: () => {
+    return axios.get(`/api/report/`)
   }
 }

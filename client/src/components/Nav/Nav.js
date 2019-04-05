@@ -30,11 +30,11 @@ class NavTemplate extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             
             {
-              this.props.userName
+              this.props.displayName
               ?
               <Nav className='ml-auto' navbar>
                 <NavItem>
-                  <NavLink href='/profile'>{this.props.userName}</NavLink>
+                  <NavLink href='/profile'>{this.props.displayName}</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink onClick={this.props.doSignOut}>Sign Out</NavLink>

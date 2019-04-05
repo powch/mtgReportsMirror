@@ -14,48 +14,43 @@ import HomePage from './pages/Home';
 class App extends Component {
 
   state = {
-    uid: null,
-    userName: null,
-    userReports: null,
-    isNewUser: false
+    fbId: null,
+    displayName: null,
+    isNewUser: false,
+    dbReports: []
   }
 
   componentDidMount() {
+    API.getAllReports()
+      .then(reports => {
+        this.setState({ dbReports: reports.data })
+      })
+      .catch(err => console.log(err));
+
     this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
       
       if ( authUser ) {
         this.setState({
-          uid: authUser.uid,
+          fbId: authUser.uid,
         });
         if ( this.state.isNewUser ) {
-          API.findOrCreateUser({
-            uid: authUser.uid,
-            userName: this.state.userName
+          API.createUser({
+            fbId: authUser.uid,
+            displayName: this.state.displayName
           })
-            .then(res => {
-              API.getUserReports({ uid: authUser.uid })
-                .then(res => this.setState({ userReports: res.data.Reports }))
-                .catch(err => console.log(err))
-            })
-            .catch(err => console.log(err));
+          .catch(err => console.log(err));
         } else {
-          API.findOrCreateUser({
-            uid: authUser.uid,
-            userName: authUser.displayName
-          })
-            .then(res => {
-              console.log(res);
-              this.setState({ userName: res.data[0].userName });
-              API.getUserReports({ uid: authUser.uid })
-                .then(res => this.setState({ userReports: res.data.Reports }))
-                .catch(err => console.log(err));
+          API.getUserInfo( authUser.uid )
+            .then(info => {
+              console.log(info.data.displayName)
+              this.setState({ displayName: info.data.displayName })
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
         }
   
         
       } else {
-        this.setState({ uid: null, userName: null, userReports: null });
+        this.setState({ fbId: null, displayName: null, isNewUser: false });
       }
     })
   }
@@ -64,8 +59,8 @@ class App extends Component {
     this.listener();
   }
 
-  getUsername = userName => {
-    this.setState({ userName, isNewUser: true });
+  getUsername = displayName => {
+    this.setState({ displayName, isNewUser: true });
   }
 
   render() {
@@ -74,7 +69,7 @@ class App extends Component {
         <div>
           
           <Nav 
-            userName={this.state.userName}
+            displayName={this.state.displayName}
             doSignOut={this.props.firebase.doSignOut}
           />
 
@@ -88,7 +83,7 @@ class App extends Component {
             (<SignIn {...props} />)} 
           />
           <Route exact path={'/submitreport'} render={props =>
-            (<SubmitReport uid={this.state.uid} {...props} />)}
+            (<SubmitReport uid={this.state.fbId} {...props} />)}
           />
         </div>
       </Router>
