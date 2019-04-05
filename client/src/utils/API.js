@@ -14,5 +14,9 @@ export default {
   // Get all reports
   getAllReports: () => {
     return axios.get(`/api/report/`)
+  },
+  // Submit report attached to user
+  submitReport: report => {
+    return axios.post(`/api/report/${report.fbId}`, report)
   }
 }

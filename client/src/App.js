@@ -21,11 +21,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    API.getAllReports()
-      .then(reports => {
-        this.setState({ dbReports: reports.data })
-      })
-      .catch(err => console.log(err));
+    
+    this.refreshHomeReports();
 
     this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
       
@@ -63,6 +60,14 @@ class App extends Component {
     this.setState({ displayName, isNewUser: true });
   }
 
+  refreshHomeReports = () => {
+    API.getAllReports()
+      .then(reports => {
+        this.setState({ dbReports: reports.data });
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
     return (
       <Router>
@@ -83,7 +88,12 @@ class App extends Component {
             (<SignIn {...props} />)} 
           />
           <Route exact path={'/submitreport'} render={props =>
-            (<SubmitReport uid={this.state.fbId} {...props} />)}
+            (<SubmitReport 
+              fbId={this.state.fbId} 
+              displayName={this.state.displayName} 
+              refreshHomeReports={this.refreshHomeReports}
+              {...props} 
+            />)}
           />
         </div>
       </Router>
